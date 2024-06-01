@@ -1,0 +1,5 @@
+{
+  "/page": "app/page.js",
+  "/components/categories/page": "app/components/categories/page.js",
+  "/components/Navbar/MonCompte/Commande/page": "app/components/Navbar/MonCompte/Commande/page.js"
+}

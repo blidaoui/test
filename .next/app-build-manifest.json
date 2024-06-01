@@ -1,0 +1,27 @@
+{
+  "pages": {
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/components/categories/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/components/categories/page.css",
+      "static/chunks/app/components/categories/page.js"
+    ],
+    "/components/Navbar/MonCompte/Commande/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/components/Navbar/MonCompte/Commande/page.css",
+      "static/chunks/app/components/Navbar/MonCompte/Commande/page.js"
+    ]
+  }
+}
