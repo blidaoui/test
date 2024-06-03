@@ -55,7 +55,8 @@ if (jsonData.message === "Message envoyé avec succès") {
     }
   };
 
-  const changeEtat = async (id: number, etat_commande: string) => {
+  const changeEtat = async (id: number, etat_commande: string,phone:string) => {
+     
     try {
       const response = await fetch(`http://localhost:8000/backend/panier/${id}`, {
         method: "PUT",
@@ -70,6 +71,15 @@ if (jsonData.message === "Message envoyé avec succès") {
             item.id === id ? { ...item, etat_Commande: etat_commande } : item
           )
         );
+        
+        const res = await fetch("http://localhost:8000/backend/user/send_SMS", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({  
+                  phoneNumber: phone,
+                  message: `Votre commande est prete`,
+          }),
+  });
       } else {
         console.error("Failed to update status:", response.status, response.statusText);
       }
@@ -80,7 +90,7 @@ if (jsonData.message === "Message envoyé avec succès") {
 
   useEffect(() => {
     fetchCommande();
-  }, [[Update]]);
+  }, [Update]);
 
   return (
     <div>
@@ -102,12 +112,12 @@ if (jsonData.message === "Message envoyé avec succès") {
               </tr>
             </thead>
         <tbody>
-          {commande.map((commandeItem: Commande) => (
+          {commande.map((commandeItem: any) => (
             <tr key={commandeItem.id}>
 
               <td>
                 {/* Convertir l'objet cartItem en tableau d'objets et afficher les titres */}
-                {Object.values(commandeItem.cartItem).map((item, index) => (
+                {Object.values(commandeItem.cartItem).map((item:any, index) => (
                   <span key={index}>{item.title}</span>
                 ))}
               </td>
@@ -118,7 +128,7 @@ if (jsonData.message === "Message envoyé avec succès") {
               <td> {commandeItem.ModeRetrait.time}</td>
               <td>{commandeItem.createdAt}</td>
               <td>
-                <Button onClick={() => {changeEtat(commandeItem.id, "commande prete");setUpdate; }}
+                <Button onClick={() => {changeEtat(commandeItem.id, "commande prete",commandeItem.ModeRetrait.phoneNumber);setUpdate(!Update); }}
                     // setUpdate={setUpdate}
                     >
                   <MdAddTask />

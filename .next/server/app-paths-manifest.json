@@ -1,5 +1,8 @@
 {
   "/not-found": "app/not-found.js",
+  "/components/Navbar/MonCompte/Profile/page": "app/components/Navbar/MonCompte/Profile/page.js",
   "/page": "app/page.js",
-  "/components/categories/page": "app/components/categories/page.js"
+  "/components/categories/page": "app/components/categories/page.js",
+  "/components/Navbar/MonCompte/Commande/page": "app/components/Navbar/MonCompte/Commande/page.js",
+  "/components/Navbar/MonCompte/GererRestaurant/page": "app/components/Navbar/MonCompte/GererRestaurant/page.js"
 }

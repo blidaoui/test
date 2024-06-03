@@ -6,6 +6,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { TbShoppingBagCheck } from "react-icons/tb";
 import { DiAptana } from "react-icons/di";
 import { FaUserCircle } from "react-icons/fa";
+import { ClearCart } from "../../store/store";
 
 
 const CompteProfile = ({ setShowProfile }: any) => {
@@ -24,7 +25,7 @@ const CompteProfile = ({ setShowProfile }: any) => {
  
   const gotoProfile = () => {
       router.push("/components/Navbar/MonCompte/Profile");
-    
+      
   };
 
   const gotoCommande = () => {
@@ -42,6 +43,7 @@ const CompteProfile = ({ setShowProfile }: any) => {
     localStorage.removeItem("userId");
     router.push("/");
     localStorage.clear();
+    ClearCart()
   };
   const getData = async () => {
     try {

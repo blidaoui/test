@@ -81,12 +81,23 @@ type StoreType = {
         Heur: string;
     };
     Panier: ProductType[];
+    isFromPayment:boolean
 };
-let DataPanier =[]
-const panierJSON = localStorage.getItem("Panier");
-if (panierJSON) {
-    DataPanier =JSON.parse(panierJSON);
-}
+// let DataPanier =[]
+// const panierJSON = localStorage.getItem("Panier");
+// if (panierJSON) {
+//     DataPanier =JSON.parse(panierJSON);
+// }
+
+let DataPanier = [];
+
+if (typeof window !== "undefined") {
+    const panierJSON = localStorage.getItem("Panier");
+    if (panierJSON) {
+        DataPanier = JSON.parse(panierJSON);
+    
+
+    }}
 
 
 const defaultStateStore: StoreType = {
@@ -98,6 +109,7 @@ const defaultStateStore: StoreType = {
         Heur: "12h:30"
     },
     Panier: DataPanier,
+    isFromPayment:false
 };
 
 const initialStateStore = defaultStateStore;
@@ -129,6 +141,13 @@ export function addToCart(product: any): void {
     console.log("Updating cart with new product array", product);
     store.Panier = product;
     console.log("New store state:", store.Panier);
+  }
+  export function ClearCart(): void {
+    store.Panier =[]
+  }
+  
+  export function setIsFromPayment(isFromPayment: boolean): void {
+    store.isFromPayment = isFromPayment;
   }
 
 export default store;

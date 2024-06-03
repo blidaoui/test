@@ -27,12 +27,18 @@ const Page = () => {
   }, []);
 
   const getData = async () => {
+    
     try {
       let arrayCookies:any=document.cookie.split(";")
+      
       let userVariable=arrayCookies.find((el:any)=>el.includes("userId"));
-      let indexOfEqual=userVariable.indexOf("=");
+      
+      let indexOfEqual=userVariable!==undefined?userVariable.indexOf("="):-1;
+      
       let userIdCookies=indexOfEqual!==-1?userVariable.substring(indexOfEqual+1):null
+      
       const userId=localStorage.getItem("userId")!==null?localStorage.getItem("userId"):Number(userIdCookies)
+      
       const response = await fetch(`http://localhost:8000/backend/user/${userId}`, {
         method: "GET",
         credentials: "include",
@@ -54,8 +60,8 @@ const Page = () => {
         return;
       }
       let arrayCookies:any=document.cookie.split(";")
-      let userVariable=arrayCookies.find((el:any)=>el.includes("userId"));
-      let indexOfEqual=userVariable.indexOf("=");
+      let userVariable:any=arrayCookies.find((el:any)=>el.includes("userId"));
+      let indexOfEqual=userVariable!==undefined?userVariable.indexOf("="):-1;
       let userIdCookies=indexOfEqual!==-1?userVariable.substring(indexOfEqual+1):null
       const userId=localStorage.getItem("userId")!==null?localStorage.getItem("userId"):Number(userIdCookies)
 
@@ -184,3 +190,4 @@ const Page = () => {
 };
 
 export default Page;
+

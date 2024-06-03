@@ -104,23 +104,23 @@ interface User {
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const response = await fetch("http://localhost:8000/backend/user", {
-          headers: { "Content-Type": "application/json" }
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setUsers(data);
-        } else {
-          console.error("Failed to fetch users");
-        }
-      } catch (error) {
-        console.error("Error fetching users:", error);
+  async function fetchUsers() {
+    try {
+      const response = await fetch("http://localhost:8000/backend/user", {
+        headers: { "Content-Type": "application/json" }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data);
+      } else {
+        console.error("Failed to fetch users");
       }
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
+  }
+  useEffect(() => {
+   
     fetchUsers();
   }, []);
 

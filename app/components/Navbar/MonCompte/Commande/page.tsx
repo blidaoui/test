@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css"; // Make sure to create this CSS file for custom styles
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import HistoriquedeCommande from "./HistoriquedeCommande";
 
 interface Item {
   qte: number;
@@ -29,7 +30,13 @@ function Page() {
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
 
   const fetchCommandes = async () => {
-    const user_id = localStorage.getItem("userId");
+    let arrayCookies:any=document.cookie.split(";")
+    let userVariable:any=arrayCookies.find((el:any)=>el.includes("userId"));
+    console.log({userVariable});
+    
+    let indexOfEqual=userVariable!==undefined?userVariable.indexOf("="):-1;
+    let userIdCookies=indexOfEqual!==-1?userVariable.substring(indexOfEqual+1):null
+    const user_id=localStorage.getItem("userId")!==null?localStorage.getItem("userId"):Number(userIdCookies)
     console.log({ user_id });
 
     try {
@@ -75,6 +82,9 @@ function Page() {
         new Date(commande.createdAt).toDateString() === today.toDateString()
     )
     .sort((a, b) => b.id - a.id); // Sort by descending ID
+    console.log({commandes});
+    
+console.log({filteredAndSortedCommandes});
 
   return (
     <div>
@@ -138,6 +148,8 @@ function Page() {
           )}
         </div>
       ))}
+
+      <div> <HistoriquedeCommande/></div>
     </div>
   );
 }

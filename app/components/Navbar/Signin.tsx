@@ -355,8 +355,11 @@ import { FcGoogle } from "react-icons/fc";
 import CompteProfile from "./MonCompte/CompteProfile";
 import Motdepasseoublié from "./MotdePasse/MotdePassOublier";
 import Registration from "./Registration";
+import { useSnapshot } from "valtio";
+import store from "../store/store";
 
 const Signin = ({ isOpen, setIsOpen }: any) => {
+  const {isFromPayment}=useSnapshot(store)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [canReturn, setCanReturn] = useState(false);
@@ -397,49 +400,55 @@ const Signin = ({ isOpen, setIsOpen }: any) => {
     setIsLoading(false);
   };
   const Submit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    let users = await listOfUser();
-    console.log({ users });
-
-    const user = users.find(
-      (el: any) => el.email === email && el.password === password
-    );
-    if (user !== undefined) {
-      toast.error(`Vérifiez vos données!`, {
-        autoClose: 2000,
-        theme: "colored",
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-    } else {
-      let response = await fetch("http://localhost:8000/backend/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      let data = await response.json();
-      if (data.data !== undefined) {
-        localStorage.setItem("userId", data.data.user_id);
-      }
-      if (data.statusCode === 200) {
-        setShowProfile(true);
-        if (data.data.role === "admin") {
-          localStorage.setItem("admin", "true");
-        } else {
-          localStorage.setItem("admin", "false");
-        }
-      } else {
-        toast.error(`Utilisateur non trouvé`, {
+    if(isFromPayment){
+      setIsOpen(false)
+    }
+  
+      e.preventDefault();
+      let users = await listOfUser();
+      console.log({ users });
+  
+      const user = users.find(
+        (el: any) => el.email === email && el.password === password
+      );
+      if (user !== undefined) {
+        toast.error(`Vérifiez vos données!`, {
           autoClose: 2000,
           theme: "colored",
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
         });
+      } else {
+        let response = await fetch("http://localhost:8000/backend/user/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+        let data = await response.json();
+        if (data.data !== undefined) {
+          localStorage.setItem("userId", data.data.user_id);
+        }
+        if (data.statusCode === 200) {
+          setShowProfile(true);
+          if (data.data.role === "admin") {
+            localStorage.setItem("admin", "true");
+          } else {
+            localStorage.setItem("admin", "false");
+          }
+        } else {
+          toast.error(`Utilisateur non trouvé`, {
+            autoClose: 2000,
+            theme: "colored",
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+        console.log({ data });
       }
-      console.log({ data });
-    }
+    
+  
   };
   useEffect(() => {
     setShowProfile(

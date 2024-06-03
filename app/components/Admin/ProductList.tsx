@@ -59,23 +59,23 @@ const ProductList: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/backend/restaurant", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setProduct(data);
-        } else {
-          console.error("Failed to fetch Products");
-        }
-      } catch (error) {
-        console.error("Error fetching Products:", error);
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/backend/restaurant", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setProduct(data);
+      } else {
+        console.error("Failed to fetch Products");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching Products:", error);
+    }
+  };
+  useEffect(() => {
 
     fetchProducts();
   }, [update, UpdateResto, categoriesUpdated]); // Add categoriesUpdated to dependencies

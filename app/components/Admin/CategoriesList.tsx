@@ -5,7 +5,6 @@ import ProduitList from "./ProduitList";
 import { IoMdAdd } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import AjouterCategorie from "@/app/Page/product/AjouterCategorie/AjouterCategorie";
-import { string } from "yup";
 
 interface Category {
   id: string;

@@ -19,13 +19,11 @@ interface Product {
 }
 
 interface ProduitListProps {
-  product: Product[];
   categoryId: string | null;
   setShowItemListe: (show: boolean) => void;
 }
 
 const ProduitList: React.FC<ProduitListProps> = ({
-  // product,
   categoryId,
   setShowItemListe,
 }) => {
@@ -34,30 +32,30 @@ const ProduitList: React.FC<ProduitListProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [editItemId, setEditItemId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const productId = localStorage.getItem("productId");
-    const fetchProducts = async () => {
-      if (categoryId) {
-        try {
-          const response = await fetch(
-            `http://localhost:8000/backend/restaurant/${productId}/${categoryId}/product`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          if (response.ok) {
-            const data = await response.json();
-            setProducts(data);
-          } else {
-            console.error("Failed to fetch products");
+  const productId = localStorage.getItem("productId");
+  const fetchProducts = async () => {
+    if (categoryId) {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/backend/restaurant/${productId}/${categoryId}/product`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
           }
-        } catch (error) {
-          console.error("Error fetching products:", error);
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+        } else {
+          console.error("Failed to fetch products");
         }
+      } catch (error) {
+        console.error("Error fetching products:", error);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, [categoryId, update]);
 

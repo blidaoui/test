@@ -6,6 +6,12 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/components/Navbar/MonCompte/Profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/components/Navbar/MonCompte/Profile/page.css",
+      "static/chunks/app/components/Navbar/MonCompte/Profile/page.js"
+    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,6 +22,17 @@
       "static/chunks/main-app.js",
       "static/css/app/components/categories/page.css",
       "static/chunks/app/components/categories/page.js"
+    ],
+    "/components/Navbar/MonCompte/Commande/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/components/Navbar/MonCompte/Commande/page.css",
+      "static/chunks/app/components/Navbar/MonCompte/Commande/page.js"
+    ],
+    "/components/Navbar/MonCompte/GererRestaurant/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/components/Navbar/MonCompte/GererRestaurant/page.js"
     ],
     "/not-found": [
       "static/chunks/webpack.js",
